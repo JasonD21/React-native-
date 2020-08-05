@@ -1,0 +1,65 @@
+import React, { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import SquareDetail from "../components/SquareDetail";
+
+const COLOUR = 15;
+
+const SquareScreen = () => {
+  const [Red, setRed] = useState(0);
+  const [Green, setGreen] = useState(0);
+  const [Blue, setBlue] = useState(0);
+
+  const setColour = (colour, change) => {
+    switch (colour) {
+      case "Red":
+        Red + change > 255 || Red + change < 0 ? null : setRed(Red + change);
+        return;
+      case "Green":
+        Green + change > 255 || Green + change < 0 ? null : setGreen(Green + change);
+        return;
+      case "Blue":
+        Blue + change > 255 || Blue + change < 0 ? null : setBlue(Blue + change);
+        return;
+      default:
+        return;
+    }
+  };
+
+  return (
+    <View>
+      <Text style={styles.Heading}>Square Screen</Text>
+      <SquareDetail
+        title="Red"
+        onInc={() => setColour("Red", COLOUR)}
+        onDec={() => setColour("Red", -1 * COLOUR)}
+      />
+      <SquareDetail
+        title="Green"
+        onInc={() => setColour("Green", COLOUR)}
+        onDec={() => setColour("Green", -1 * COLOUR)}
+      />
+      <SquareDetail
+        title="Blue"
+        onInc={() => setColour("Blue", COLOUR)}
+        onDec={() => setColour("Blue", -1 * COLOUR)}
+      />
+      <View
+        style={{
+          height: 150,
+          width: 150,
+          backgroundColor: `rgb(${Red}, ${Green}, ${Blue})`,
+        }}
+      ></View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  Heading: {
+    fontSize: 30,
+    marginBottom: 30,
+  },
+  box: {},
+});
+
+export default SquareScreen;
